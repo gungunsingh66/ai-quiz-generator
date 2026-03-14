@@ -1,0 +1,93 @@
+/* ===== Global Background ===== */
+body {
+    background-color: #0f172a;
+}
+
+/* ===== Main App Container ===== */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color: white;
+}
+
+/* ===== Titles ===== */
+h1, h2, h3 {
+    color: #38bdf8;
+}
+
+/* ===== Buttons ===== */
+.stButton > button {
+    width: 100%;
+    height: 45px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(90deg,#2563eb,#38bdf8);
+    color: white;
+    transition: 0.2s;
+}
+
+.stButton > button:hover {
+    transform: scale(1.02);
+    background: linear-gradient(90deg,#1d4ed8,#0ea5e9);
+}
+
+/* ===== Input Fields ===== */
+input, textarea {
+    border-radius: 10px !important;
+}
+
+/* ===== Quiz Question Card ===== */
+.quiz-card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* ===== Timer Style ===== */
+.timer-normal {
+    font-size: 24px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.timer-warning {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ef4444;
+}
+
+/* ===== Leaderboard ===== */
+.leaderboard {
+    background-color: #1e293b;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* ===== Top Rank Colors ===== */
+.rank1 {
+    color: gold;
+    font-weight: bold;
+}
+
+.rank2 {
+    color: silver;
+}
+
+.rank3 {
+    color: #cd7f32;
+}
+
+/* ===== Divider ===== */
+hr {
+    border: 1px solid #334155;
+}
+
+/* ===== Footer ===== */
+.footer {
+    text-align: center;
+    color: #94a3b8;
+    margin-top: 30px;
+    font-size: 14px;
+}

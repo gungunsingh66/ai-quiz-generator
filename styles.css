@@ -1,14 +1,12 @@
 /* ============================================================
    AI QUIZ PLATFORM — CYBERPUNK NEURAL THEME
    Font: Orbitron (display) + Rajdhani (body)
-   Aesthetic: Dark sci-fi, neon glows, glitch effects, 
-              holographic panels, pulse animations
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 /* ============================================================
-   CSS VARIABLES — NEURAL COLOR SYSTEM
+   CSS VARIABLES
    ============================================================ */
 
 :root {
@@ -31,7 +29,6 @@
 
   --border-dim:     rgba(0, 245, 255, 0.12);
   --border-glow:    rgba(0, 245, 255, 0.45);
-  --border-hot:     rgba(0, 245, 255, 0.85);
 
   --shadow-neon:    0 0 20px rgba(0, 245, 255, 0.3), 0 0 60px rgba(0, 245, 255, 0.1);
   --shadow-deep:    0 20px 60px rgba(0, 0, 0, 0.8);
@@ -44,25 +41,17 @@
 
   --transition-snap:   0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow:   0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ============================================================
-   GLOBAL RESET & BASE
+   GLOBAL BASE
    ============================================================ */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 /* ============================================================
-   STREAMLIT ROOT OVERRIDES
+   STREAMLIT APP
    ============================================================ */
 
 .stApp {
@@ -117,21 +106,7 @@ html {
 }
 
 /* ============================================================
-   HERO BANNER
-   ============================================================ */
-
-/* Override the inline hero — target the outer div */
-.stApp [data-testid="stMarkdownContainer"] > div[style*="linear-gradient(90deg,#2563eb"] {
-  background: linear-gradient(135deg, #020d1a 0%, #0a1628 50%, #050f1f 100%) !important;
-  border: 1px solid var(--border-glow) !important;
-  border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-neon), var(--shadow-deep) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-/* ============================================================
-   TYPOGRAPHY — HEADINGS
+   TYPOGRAPHY
    ============================================================ */
 
 h1, h2, h3,
@@ -150,12 +125,10 @@ h1, .stApp h1 { font-size: clamp(1.8rem, 4vw, 2.6rem) !important; }
 h2, .stApp h2 { font-size: clamp(1.4rem, 3vw, 2rem) !important; }
 h3, .stApp h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem) !important; }
 
-p, label, span, div {
-  font-family: 'Rajdhani', sans-serif !important;
-}
+p, label, span, div { font-family: 'Rajdhani', sans-serif !important; }
 
 /* ============================================================
-   METRIC CARDS (st.metric)
+   METRIC CARDS
    ============================================================ */
 
 [data-testid="stMetric"] {
@@ -226,21 +199,9 @@ hr, [data-testid="stDivider"] {
   border-right: 1px solid var(--border-dim) !important;
 }
 
-[data-testid="stSidebar"]::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; right: 0;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, var(--neon-cyan), transparent);
-  opacity: 0.4;
-}
-
 [data-testid="stSidebar"] .stMarkdown h1,
 [data-testid="stSidebar"] .stMarkdown h2,
-[data-testid="stSidebar"] .stMarkdown h3,
-[data-testid="stSidebar"] .element-container h1,
-[data-testid="stSidebar"] .element-container h2,
-[data-testid="stSidebar"] .element-container h3 {
+[data-testid="stSidebar"] .stMarkdown h3 {
   font-family: 'Orbitron', monospace !important;
   font-size: 0.9rem !important;
   letter-spacing: 0.1em !important;
@@ -250,10 +211,6 @@ hr, [data-testid="stDivider"] {
 /* ============================================================
    TABS
    ============================================================ */
-
-[data-testid="stTabs"] {
-  border-bottom: 1px solid var(--border-dim) !important;
-}
 
 button[data-baseweb="tab"] {
   font-family: 'Orbitron', monospace !important;
@@ -307,9 +264,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
   outline: none !important;
 }
 
-.stTextInput input::placeholder {
-  color: var(--text-muted) !important;
-}
+.stTextInput input::placeholder { color: var(--text-muted) !important; }
 
 .stTextInput label,
 .stNumberInput label,
@@ -323,7 +278,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
 }
 
 /* ============================================================
-   SELECTBOX / DROPDOWN
+   SELECTBOX
    ============================================================ */
 
 [data-testid="stSelectbox"] > div > div {
@@ -345,11 +300,6 @@ button[aria-selected="true"][data-baseweb="tab"] {
    RADIO BUTTONS
    ============================================================ */
 
-.stRadio [data-testid="stWidgetLabel"] span {
-  font-family: 'Orbitron', monospace !important;
-  font-size: 0.65rem !important;
-}
-
 .stRadio div[role="radiogroup"] label {
   background: var(--bg-card) !important;
   border: 1px solid var(--border-dim) !important;
@@ -368,7 +318,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
 .stRadio div[role="radiogroup"] label:hover {
   border-color: var(--neon-cyan) !important;
   background: var(--bg-hover) !important;
-  box-shadow: 0 0 12px rgba(0, 245, 255, 0.12), inset 0 0 20px rgba(0, 245, 255, 0.04) !important;
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.12) !important;
   transform: translateX(4px) !important;
   color: var(--text-glow) !important;
 }
@@ -376,12 +326,12 @@ button[aria-selected="true"][data-baseweb="tab"] {
 .stRadio div[role="radiogroup"] label:has(input:checked) {
   border-color: var(--neon-cyan) !important;
   background: rgba(0, 245, 255, 0.08) !important;
-  box-shadow: 0 0 16px rgba(0, 245, 255, 0.2), inset 0 0 20px rgba(0, 245, 255, 0.05) !important;
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.2) !important;
   color: var(--neon-cyan) !important;
 }
 
 /* ============================================================
-   BUTTONS — PRIMARY
+   BUTTONS
    ============================================================ */
 
 .stButton > button {
@@ -397,36 +347,19 @@ button[aria-selected="true"][data-baseweb="tab"] {
   padding: 0.65rem 1.8rem !important;
   cursor: pointer !important;
   transition: all var(--transition-smooth) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-.stButton > button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0, 245, 255, 0.0), rgba(0, 245, 255, 0.15));
-  opacity: 0;
-  transition: opacity var(--transition-smooth);
 }
 
 .stButton > button:hover {
   background: rgba(0, 245, 255, 0.1) !important;
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 60px rgba(0, 245, 255, 0.15), inset 0 0 20px rgba(0, 245, 255, 0.05) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 60px rgba(0, 245, 255, 0.15) !important;
   transform: translateY(-2px) !important;
   text-shadow: 0 0 10px rgba(0, 245, 255, 0.8) !important;
 }
 
-.stButton > button:hover::before {
-  opacity: 1;
-}
-
 .stButton > button:active {
   transform: translateY(0px) !important;
-  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3) !important;
 }
 
-/* Disabled button */
 .stButton > button:disabled {
   border-color: var(--text-muted) !important;
   color: var(--text-muted) !important;
@@ -436,25 +369,14 @@ button[aria-selected="true"][data-baseweb="tab"] {
   box-shadow: none !important;
 }
 
-/* Generate Quiz — highlight */
-.stButton > button[kind="primary"],
-.stButton:first-child > button {
-  border-color: var(--neon-blue) !important;
-  color: var(--neon-blue) !important;
-}
-.stButton:first-child > button:hover {
-  box-shadow: 0 0 20px rgba(0, 128, 255, 0.4), 0 0 60px rgba(0, 128, 255, 0.15) !important;
-  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8) !important;
-}
-
-/* Download buttons */
 [data-testid="stDownloadButton"] > button {
   border-color: var(--neon-green) !important;
   color: var(--neon-green) !important;
 }
+
 [data-testid="stDownloadButton"] > button:hover {
   background: rgba(0, 255, 136, 0.08) !important;
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.12) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4) !important;
   text-shadow: 0 0 10px rgba(0, 255, 136, 0.8) !important;
 }
 
@@ -483,7 +405,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
   position: absolute;
   top: 0; bottom: 0;
   width: 40px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   animation: shimmer 1.5s linear infinite;
 }
 
@@ -493,12 +415,10 @@ button[aria-selected="true"][data-baseweb="tab"] {
 }
 
 /* ============================================================
-   ALERT / INFO / SUCCESS / ERROR / WARNING
+   ALERTS
    ============================================================ */
 
-/* Info */
-[data-testid="stInfo"],
-.stAlert[data-baseweb="notification"][kind="info"] {
+[data-testid="stInfo"] {
   background: rgba(0, 128, 255, 0.08) !important;
   border: 1px solid rgba(0, 128, 255, 0.3) !important;
   border-left: 3px solid var(--neon-blue) !important;
@@ -506,9 +426,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
   color: var(--text-primary) !important;
 }
 
-/* Success */
-[data-testid="stSuccess"],
-.stAlert[kind="success"] {
+[data-testid="stSuccess"] {
   background: rgba(0, 255, 136, 0.07) !important;
   border: 1px solid rgba(0, 255, 136, 0.25) !important;
   border-left: 3px solid var(--neon-green) !important;
@@ -516,9 +434,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
   color: var(--text-primary) !important;
 }
 
-/* Error */
-[data-testid="stError"],
-.stAlert[kind="error"] {
+[data-testid="stError"] {
   background: rgba(255, 0, 110, 0.07) !important;
   border: 1px solid rgba(255, 0, 110, 0.25) !important;
   border-left: 3px solid var(--neon-pink) !important;
@@ -526,9 +442,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
   color: var(--text-primary) !important;
 }
 
-/* Warning */
-[data-testid="stWarning"],
-.stAlert[kind="warning"] {
+[data-testid="stWarning"] {
   background: rgba(255, 215, 0, 0.07) !important;
   border: 1px solid rgba(255, 215, 0, 0.25) !important;
   border-left: 3px solid var(--neon-gold) !important;
@@ -537,7 +451,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
 }
 
 /* ============================================================
-   DATAFRAME / TABLE
+   DATAFRAME
    ============================================================ */
 
 [data-testid="stDataFrame"] {
@@ -545,76 +459,6 @@ button[aria-selected="true"][data-baseweb="tab"] {
   border-radius: var(--radius-lg) !important;
   overflow: hidden;
   box-shadow: var(--shadow-card) !important;
-}
-
-[data-testid="stDataFrame"] table {
-  background: var(--bg-card) !important;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-[data-testid="stDataFrame"] thead th {
-  background: rgba(0, 245, 255, 0.06) !important;
-  color: var(--neon-cyan) !important;
-  font-family: 'Orbitron', monospace !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  border-bottom: 1px solid var(--border-glow) !important;
-  padding: 0.8rem 1rem !important;
-}
-
-[data-testid="stDataFrame"] tbody tr {
-  border-bottom: 1px solid var(--border-dim) !important;
-  transition: background var(--transition-snap) !important;
-}
-
-[data-testid="stDataFrame"] tbody tr:hover {
-  background: rgba(0, 245, 255, 0.04) !important;
-}
-
-[data-testid="stDataFrame"] tbody td {
-  color: var(--text-secondary) !important;
-  font-family: 'Rajdhani', sans-serif !important;
-  font-size: 0.95rem !important;
-  padding: 0.65rem 1rem !important;
-}
-
-/* ============================================================
-   QUESTION BLOCKS (markdown bold Q text)
-   ============================================================ */
-
-[data-testid="stMarkdownContainer"] strong {
-  color: var(--text-primary) !important;
-  font-family: 'Rajdhani', sans-serif !important;
-  font-size: 1.1rem !important;
-  font-weight: 600 !important;
-}
-
-/* ============================================================
-   LEADERBOARD ENTRIES
-   ============================================================ */
-
-/* Target leaderboard text — 🥇 🥈 🥉 entries */
-[data-testid="stMarkdownContainer"] p:has(> em),
-.stMarkdown p {
-  font-family: 'Rajdhani', sans-serif !important;
-  font-size: 1.05rem !important;
-  color: var(--text-secondary) !important;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-dim);
-  transition: color var(--transition-snap);
-}
-
-/* ============================================================
-   SUBHEADER / HEADER OVERRIDE
-   ============================================================ */
-
-.stApp [data-testid="stMarkdownContainer"] h2,
-.stApp [data-testid="stMarkdownContainer"] h3 {
-  border-bottom: 1px solid var(--border-dim) !important;
-  padding-bottom: 0.4rem !important;
-  margin-bottom: 1rem !important;
 }
 
 /* ============================================================
@@ -647,57 +491,13 @@ button[aria-selected="true"][data-baseweb="tab"] {
    SCROLLBAR
    ============================================================ */
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-void);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--text-muted);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-cyan);
-  box-shadow: 0 0 6px var(--neon-cyan);
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); box-shadow: 0 0 6px var(--neon-cyan); }
 
 /* ============================================================
-   KEYFRAME LIBRARY
-   ============================================================ */
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scanLine {
-  0%, 100% { opacity: 0;  transform: translateX(-100%); }
-  20%, 80%  { opacity: 1; }
-  50%       { transform: translateX(100%); }
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(0, 245, 255, 0); }
-}
-
-@keyframes glitch {
-  0%   { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
-  10%  { clip-path: inset(60% 0 30% 0); transform: translate(3px, 0); }
-  20%  { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
-  100% { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
-}
-
-/* ============================================================
-   NUMBER INPUT STEPPERS
+   NUMBER INPUT
    ============================================================ */
 
 .stNumberInput button {
@@ -714,15 +514,7 @@ button[aria-selected="true"][data-baseweb="tab"] {
 }
 
 /* ============================================================
-   PASSWORD INPUT
-   ============================================================ */
-
-.stTextInput input[type="password"] {
-  letter-spacing: 0.2em;
-}
-
-/* ============================================================
-   TABS CONTENT AREA
+   TABS CONTENT
    ============================================================ */
 
 [data-testid="stTabsContent"] {
@@ -730,34 +522,13 @@ button[aria-selected="true"][data-baseweb="tab"] {
   animation: fadeSlideUp 0.35s ease both;
 }
 
-/* ============================================================
-   SIDEBAR TABS
-   ============================================================ */
-
 [data-testid="stSidebar"] button[data-baseweb="tab"] {
   font-size: 0.62rem !important;
   padding: 0.6rem 1rem !important;
 }
 
 /* ============================================================
-   ACCOUNT SIDEBAR INFO/SUCCESS
-   ============================================================ */
-
-[data-testid="stSidebar"] [data-testid="stInfo"],
-[data-testid="stSidebar"] [data-testid="stSuccess"] {
-  font-size: 0.85rem !important;
-}
-
-/* ============================================================
-   QUIZ SECTION WRAPPER (visual grouping)
-   ============================================================ */
-
-[data-testid="stTabsContent"] > div > div {
-  animation: fadeSlideUp 0.4s ease both;
-}
-
-/* ============================================================
-   SELECTION + CURSOR
+   SELECTION
    ============================================================ */
 
 ::selection {
@@ -766,20 +537,91 @@ button[aria-selected="true"][data-baseweb="tab"] {
 }
 
 /* ============================================================
-   MOBILE RESPONSIVE
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanLine {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  20%, 80%  { opacity: 1; }
+  50%       { transform: translateX(100%); }
+}
+
+/* ============================================================
+   MOBILE
    ============================================================ */
 
 @media (max-width: 768px) {
-  .main .block-container {
-    padding: 1rem 1rem 3rem !important;
-  }
-
-  [data-testid="stMetricValue"] {
-    font-size: 1.6rem !important;
-  }
-
-  .stButton > button {
-    font-size: 0.65rem !important;
-    padding: 0.55rem 1.2rem !important;
-  }
+  .main .block-container { padding: 1rem 1rem 3rem !important; }
+  [data-testid="stMetricValue"] { font-size: 1.6rem !important; }
+  .stButton > button { font-size: 0.65rem !important; padding: 0.55rem 1.2rem !important; }
 }
+
+/* ===============================
+   SIDEBAR TOGGLE ICON FIX
+   =============================== */
+
+/* Hide Streamlit default icon completely */
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stExpandSidebarButton"] svg,
+[data-testid="stIconMaterial"] {
+    display: none !important;
+}
+
+/* Style the toggle button */
+button[data-testid="stSidebarCollapseButton"],
+[data-testid="stExpandSidebarButton"] button {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0,245,255,0.4) !important;
+    background: rgba(10,22,40,0.9) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+/* Arrow when sidebar OPEN */
+button[data-testid="stSidebarCollapseButton"]::after {
+    content: "←";
+    font-size: 18px;
+    color: #00f5ff;
+    text-shadow: 0 0 8px #00f5ff;
+}
+
+/* Arrow when sidebar CLOSED */
+[data-testid="stExpandSidebarButton"] button::after {
+    content: "→";
+    font-size: 18px;
+    color: #00f5ff;
+    text-shadow: 0 0 8px #00f5ff;
+}
+
+/* Hover effect */
+button[data-testid="stSidebarCollapseButton"]:hover,
+[data-testid="stExpandSidebarButton"] button:hover {
+    border-color: #00f5ff !important;
+    box-shadow: 0 0 12px rgba(0,245,255,0.6);
+}
+
+/* ===============================
+   CUSTOM SIDEBAR ICON FIX
+   =============================== */
+
+/* Keep Streamlit button but make it invisible */
+button[data-testid="stSidebarCollapseButton"],
+[data-testid="stExpandSidebarButton"] button {
+    opacity: 0 !important;
+    position: fixed !important;
+    top: 18px !important;
+    left: 18px !important;
+    width: 40px !important;
+    height: 40px !important;
+    z-index: 1000 !important;
+}
+

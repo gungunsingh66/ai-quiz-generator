@@ -1,93 +1,785 @@
-/* ===== Global Background ===== */
-body {
-    background-color: #0f172a;
+/* ============================================================
+   AI QUIZ PLATFORM — CYBERPUNK NEURAL THEME
+   Font: Orbitron (display) + Rajdhani (body)
+   Aesthetic: Dark sci-fi, neon glows, glitch effects, 
+              holographic panels, pulse animations
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================
+   CSS VARIABLES — NEURAL COLOR SYSTEM
+   ============================================================ */
+
+:root {
+  --bg-void:        #020408;
+  --bg-panel:       #060d18;
+  --bg-card:        #0a1628;
+  --bg-hover:       #0f2040;
+
+  --neon-cyan:      #00f5ff;
+  --neon-blue:      #0080ff;
+  --neon-purple:    #8b5cf6;
+  --neon-green:     #00ff88;
+  --neon-pink:      #ff006e;
+  --neon-gold:      #ffd700;
+
+  --text-primary:   #e8f4fd;
+  --text-secondary: #7fb3d3;
+  --text-muted:     #3a6a8a;
+  --text-glow:      #00f5ff;
+
+  --border-dim:     rgba(0, 245, 255, 0.12);
+  --border-glow:    rgba(0, 245, 255, 0.45);
+  --border-hot:     rgba(0, 245, 255, 0.85);
+
+  --shadow-neon:    0 0 20px rgba(0, 245, 255, 0.3), 0 0 60px rgba(0, 245, 255, 0.1);
+  --shadow-deep:    0 20px 60px rgba(0, 0, 0, 0.8);
+  --shadow-card:    0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(0, 245, 255, 0.08);
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  --transition-snap:   0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== Main App Container ===== */
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color: white;
+/* ============================================================
+   GLOBAL RESET & BASE
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* ===== Titles ===== */
-h1, h2, h3 {
-    color: #38bdf8;
+html {
+  scroll-behavior: smooth;
 }
 
-/* ===== Buttons ===== */
+/* ============================================================
+   STREAMLIT ROOT OVERRIDES
+   ============================================================ */
+
+.stApp {
+  background: var(--bg-void) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  color: var(--text-primary) !important;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated grid background */
+.stApp::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: gridDrift 20s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Radial ambient glow */
+.stApp::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 10%, rgba(0, 128, 255, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 90%, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gridDrift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 48px 48px; }
+}
+
+/* ============================================================
+   MAIN CONTENT WRAPPER
+   ============================================================ */
+
+.main .block-container {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 2.5rem 4rem !important;
+  max-width: 1200px !important;
+}
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+
+/* Override the inline hero — target the outer div */
+.stApp [data-testid="stMarkdownContainer"] > div[style*="linear-gradient(90deg,#2563eb"] {
+  background: linear-gradient(135deg, #020d1a 0%, #0a1628 50%, #050f1f 100%) !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-neon), var(--shadow-deep) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================================
+   TYPOGRAPHY — HEADINGS
+   ============================================================ */
+
+h1, h2, h3,
+.stApp h1, .stApp h2, .stApp h3,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3 {
+  font-family: 'Orbitron', monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 30px rgba(0, 245, 255, 0.25);
+}
+
+h1, .stApp h1 { font-size: clamp(1.8rem, 4vw, 2.6rem) !important; }
+h2, .stApp h2 { font-size: clamp(1.4rem, 3vw, 2rem) !important; }
+h3, .stApp h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem) !important; }
+
+p, label, span, div {
+  font-family: 'Rajdhani', sans-serif !important;
+}
+
+/* ============================================================
+   METRIC CARDS (st.metric)
+   ============================================================ */
+
+[data-testid="stMetric"] {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-dim) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 1.4rem 1.6rem !important;
+  box-shadow: var(--shadow-card) !important;
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth) !important;
+  position: relative;
+  overflow: hidden;
+  animation: fadeSlideUp 0.5s ease both;
+}
+
+[data-testid="stMetric"]:nth-child(1) { animation-delay: 0.1s; }
+[data-testid="stMetric"]:nth-child(2) { animation-delay: 0.2s; }
+[data-testid="stMetric"]:nth-child(3) { animation-delay: 0.3s; }
+
+[data-testid="stMetric"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  animation: scanLine 3s ease-in-out infinite;
+}
+
+[data-testid="stMetric"]:hover {
+  transform: translateY(-4px) !important;
+  border-color: var(--border-glow) !important;
+  box-shadow: var(--shadow-neon), var(--shadow-card) !important;
+}
+
+[data-testid="stMetricLabel"] {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.12em !important;
+  color: var(--text-secondary) !important;
+  text-transform: uppercase !important;
+}
+
+[data-testid="stMetricValue"] {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 2.2rem !important;
+  font-weight: 900 !important;
+  color: var(--neon-cyan) !important;
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.6) !important;
+}
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+
+hr, [data-testid="stDivider"] {
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent) !important;
+  margin: 1.5rem 0 !important;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+[data-testid="stSidebar"] {
+  background: var(--bg-panel) !important;
+  border-right: 1px solid var(--border-dim) !important;
+}
+
+[data-testid="stSidebar"]::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--neon-cyan), transparent);
+  opacity: 0.4;
+}
+
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3,
+[data-testid="stSidebar"] .element-container h1,
+[data-testid="stSidebar"] .element-container h2,
+[data-testid="stSidebar"] .element-container h3 {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.1em !important;
+  color: var(--neon-cyan) !important;
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+
+[data-testid="stTabs"] {
+  border-bottom: 1px solid var(--border-dim) !important;
+}
+
+button[data-baseweb="tab"] {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  color: var(--text-secondary) !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  padding: 0.8rem 1.4rem !important;
+  transition: all var(--transition-smooth) !important;
+  text-transform: uppercase;
+}
+
+button[data-baseweb="tab"]:hover {
+  color: var(--neon-cyan) !important;
+  border-bottom-color: rgba(0, 245, 255, 0.3) !important;
+  text-shadow: 0 0 12px rgba(0, 245, 255, 0.5);
+}
+
+button[aria-selected="true"][data-baseweb="tab"] {
+  color: var(--neon-cyan) !important;
+  border-bottom-color: var(--neon-cyan) !important;
+  text-shadow: 0 0 16px rgba(0, 245, 255, 0.7) !important;
+  background: rgba(0, 245, 255, 0.04) !important;
+}
+
+/* ============================================================
+   TEXT INPUTS
+   ============================================================ */
+
+.stTextInput input,
+.stNumberInput input {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-dim) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  padding: 0.65rem 1rem !important;
+  transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth) !important;
+  caret-color: var(--neon-cyan);
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.12), 0 0 20px rgba(0, 245, 255, 0.15) !important;
+  outline: none !important;
+}
+
+.stTextInput input::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.stTextInput label,
+.stNumberInput label,
+.stSelectbox label,
+.stRadio label span {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--text-secondary) !important;
+}
+
+/* ============================================================
+   SELECTBOX / DROPDOWN
+   ============================================================ */
+
+[data-testid="stSelectbox"] > div > div {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-dim) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 500 !important;
+  transition: border-color var(--transition-smooth) !important;
+}
+
+[data-testid="stSelectbox"] > div > div:hover {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.15) !important;
+}
+
+/* ============================================================
+   RADIO BUTTONS
+   ============================================================ */
+
+.stRadio [data-testid="stWidgetLabel"] span {
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.65rem !important;
+}
+
+.stRadio div[role="radiogroup"] label {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-dim) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.6rem 1rem 0.6rem 0.8rem !important;
+  margin-bottom: 0.4rem !important;
+  cursor: pointer !important;
+  transition: all var(--transition-snap) !important;
+  display: flex !important;
+  align-items: center !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+
+.stRadio div[role="radiogroup"] label:hover {
+  border-color: var(--neon-cyan) !important;
+  background: var(--bg-hover) !important;
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.12), inset 0 0 20px rgba(0, 245, 255, 0.04) !important;
+  transform: translateX(4px) !important;
+  color: var(--text-glow) !important;
+}
+
+.stRadio div[role="radiogroup"] label:has(input:checked) {
+  border-color: var(--neon-cyan) !important;
+  background: rgba(0, 245, 255, 0.08) !important;
+  box-shadow: 0 0 16px rgba(0, 245, 255, 0.2), inset 0 0 20px rgba(0, 245, 255, 0.05) !important;
+  color: var(--neon-cyan) !important;
+}
+
+/* ============================================================
+   BUTTONS — PRIMARY
+   ============================================================ */
+
 .stButton > button {
-    width: 100%;
-    height: 45px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    background: linear-gradient(90deg,#2563eb,#38bdf8);
-    color: white;
-    transition: 0.2s;
+  background: transparent !important;
+  border: 1px solid var(--neon-cyan) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--neon-cyan) !important;
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  padding: 0.65rem 1.8rem !important;
+  cursor: pointer !important;
+  transition: all var(--transition-smooth) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.stButton > button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.0), rgba(0, 245, 255, 0.15));
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
 }
 
 .stButton > button:hover {
-    transform: scale(1.02);
-    background: linear-gradient(90deg,#1d4ed8,#0ea5e9);
+  background: rgba(0, 245, 255, 0.1) !important;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 60px rgba(0, 245, 255, 0.15), inset 0 0 20px rgba(0, 245, 255, 0.05) !important;
+  transform: translateY(-2px) !important;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.8) !important;
 }
 
-/* ===== Input Fields ===== */
-input, textarea {
-    border-radius: 10px !important;
+.stButton > button:hover::before {
+  opacity: 1;
 }
 
-/* ===== Quiz Question Card ===== */
-.quiz-card {
-    background-color: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 15px;
+.stButton > button:active {
+  transform: translateY(0px) !important;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3) !important;
 }
 
-/* ===== Timer Style ===== */
-.timer-normal {
-    font-size: 24px;
-    font-weight: bold;
-    color: #38bdf8;
+/* Disabled button */
+.stButton > button:disabled {
+  border-color: var(--text-muted) !important;
+  color: var(--text-muted) !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-.timer-warning {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ef4444;
+/* Generate Quiz — highlight */
+.stButton > button[kind="primary"],
+.stButton:first-child > button {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+.stButton:first-child > button:hover {
+  box-shadow: 0 0 20px rgba(0, 128, 255, 0.4), 0 0 60px rgba(0, 128, 255, 0.15) !important;
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.8) !important;
 }
 
-/* ===== Leaderboard ===== */
-.leaderboard {
-    background-color: #1e293b;
-    padding: 15px;
-    border-radius: 12px;
+/* Download buttons */
+[data-testid="stDownloadButton"] > button {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+[data-testid="stDownloadButton"] > button:hover {
+  background: rgba(0, 255, 136, 0.08) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.12) !important;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.8) !important;
 }
 
-/* ===== Top Rank Colors ===== */
-.rank1 {
-    color: gold;
-    font-weight: bold;
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+
+[data-testid="stProgressBar"] > div {
+  background: var(--bg-card) !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+  border: 1px solid var(--border-dim) !important;
 }
 
-.rank2 {
-    color: silver;
+[data-testid="stProgressBar"] > div > div {
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-cyan)) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.5) !important;
+  transition: width 1s linear !important;
+  position: relative;
+  overflow: hidden;
 }
 
-.rank3 {
-    color: #cd7f32;
+[data-testid="stProgressBar"] > div > div::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 1.5s linear infinite;
 }
 
-/* ===== Divider ===== */
-hr {
-    border: 1px solid #334155;
+@keyframes shimmer {
+  0%   { left: -40px; }
+  100% { left: 100%; }
 }
 
-/* ===== Footer ===== */
+/* ============================================================
+   ALERT / INFO / SUCCESS / ERROR / WARNING
+   ============================================================ */
+
+/* Info */
+[data-testid="stInfo"],
+.stAlert[data-baseweb="notification"][kind="info"] {
+  background: rgba(0, 128, 255, 0.08) !important;
+  border: 1px solid rgba(0, 128, 255, 0.3) !important;
+  border-left: 3px solid var(--neon-blue) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Success */
+[data-testid="stSuccess"],
+.stAlert[kind="success"] {
+  background: rgba(0, 255, 136, 0.07) !important;
+  border: 1px solid rgba(0, 255, 136, 0.25) !important;
+  border-left: 3px solid var(--neon-green) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Error */
+[data-testid="stError"],
+.stAlert[kind="error"] {
+  background: rgba(255, 0, 110, 0.07) !important;
+  border: 1px solid rgba(255, 0, 110, 0.25) !important;
+  border-left: 3px solid var(--neon-pink) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Warning */
+[data-testid="stWarning"],
+.stAlert[kind="warning"] {
+  background: rgba(255, 215, 0, 0.07) !important;
+  border: 1px solid rgba(255, 215, 0, 0.25) !important;
+  border-left: 3px solid var(--neon-gold) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+   DATAFRAME / TABLE
+   ============================================================ */
+
+[data-testid="stDataFrame"] {
+  border: 1px solid var(--border-dim) !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-card) !important;
+}
+
+[data-testid="stDataFrame"] table {
+  background: var(--bg-card) !important;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+[data-testid="stDataFrame"] thead th {
+  background: rgba(0, 245, 255, 0.06) !important;
+  color: var(--neon-cyan) !important;
+  font-family: 'Orbitron', monospace !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid var(--border-glow) !important;
+  padding: 0.8rem 1rem !important;
+}
+
+[data-testid="stDataFrame"] tbody tr {
+  border-bottom: 1px solid var(--border-dim) !important;
+  transition: background var(--transition-snap) !important;
+}
+
+[data-testid="stDataFrame"] tbody tr:hover {
+  background: rgba(0, 245, 255, 0.04) !important;
+}
+
+[data-testid="stDataFrame"] tbody td {
+  color: var(--text-secondary) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 0.95rem !important;
+  padding: 0.65rem 1rem !important;
+}
+
+/* ============================================================
+   QUESTION BLOCKS (markdown bold Q text)
+   ============================================================ */
+
+[data-testid="stMarkdownContainer"] strong {
+  color: var(--text-primary) !important;
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================================
+   LEADERBOARD ENTRIES
+   ============================================================ */
+
+/* Target leaderboard text — 🥇 🥈 🥉 entries */
+[data-testid="stMarkdownContainer"] p:has(> em),
+.stMarkdown p {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-size: 1.05rem !important;
+  color: var(--text-secondary) !important;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-dim);
+  transition: color var(--transition-snap);
+}
+
+/* ============================================================
+   SUBHEADER / HEADER OVERRIDE
+   ============================================================ */
+
+.stApp [data-testid="stMarkdownContainer"] h2,
+.stApp [data-testid="stMarkdownContainer"] h3 {
+  border-bottom: 1px solid var(--border-dim) !important;
+  padding-bottom: 0.4rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
 .footer {
-    text-align: center;
-    color: #94a3b8;
-    margin-top: 30px;
-    font-size: 14px;
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.2rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-dim);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 1px;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 6px var(--neon-cyan);
+}
+
+/* ============================================================
+   KEYFRAME LIBRARY
+   ============================================================ */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scanLine {
+  0%, 100% { opacity: 0;  transform: translateX(-100%); }
+  20%, 80%  { opacity: 1; }
+  50%       { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 245, 255, 0); }
+}
+
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
+  10%  { clip-path: inset(60% 0 30% 0); transform: translate(3px, 0); }
+  20%  { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
+  100% { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
+}
+
+/* ============================================================
+   NUMBER INPUT STEPPERS
+   ============================================================ */
+
+.stNumberInput button {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-dim) !important;
+  color: var(--neon-cyan) !important;
+  transition: all var(--transition-snap) !important;
+}
+
+.stNumberInput button:hover {
+  background: rgba(0, 245, 255, 0.1) !important;
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3) !important;
+}
+
+/* ============================================================
+   PASSWORD INPUT
+   ============================================================ */
+
+.stTextInput input[type="password"] {
+  letter-spacing: 0.2em;
+}
+
+/* ============================================================
+   TABS CONTENT AREA
+   ============================================================ */
+
+[data-testid="stTabsContent"] {
+  padding-top: 1.5rem !important;
+  animation: fadeSlideUp 0.35s ease both;
+}
+
+/* ============================================================
+   SIDEBAR TABS
+   ============================================================ */
+
+[data-testid="stSidebar"] button[data-baseweb="tab"] {
+  font-size: 0.62rem !important;
+  padding: 0.6rem 1rem !important;
+}
+
+/* ============================================================
+   ACCOUNT SIDEBAR INFO/SUCCESS
+   ============================================================ */
+
+[data-testid="stSidebar"] [data-testid="stInfo"],
+[data-testid="stSidebar"] [data-testid="stSuccess"] {
+  font-size: 0.85rem !important;
+}
+
+/* ============================================================
+   QUIZ SECTION WRAPPER (visual grouping)
+   ============================================================ */
+
+[data-testid="stTabsContent"] > div > div {
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+/* ============================================================
+   SELECTION + CURSOR
+   ============================================================ */
+
+::selection {
+  background: rgba(0, 245, 255, 0.25);
+  color: var(--neon-cyan);
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .main .block-container {
+    padding: 1rem 1rem 3rem !important;
+  }
+
+  [data-testid="stMetricValue"] {
+    font-size: 1.6rem !important;
+  }
+
+  .stButton > button {
+    font-size: 0.65rem !important;
+    padding: 0.55rem 1.2rem !important;
+  }
 }
